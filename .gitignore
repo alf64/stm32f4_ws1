@@ -2,14 +2,15 @@
 ###################
 *.cproject
 *.project
-Release
-Debug
-.settings
-.metadata
+*Release
+*Debug
+*.settings
+*.metadata
+*.mxproject
 
 # OS specifics #
 ###################
-Thumbs.db
+*Thumbs.db
 
 # Prerequisites
 *.d
