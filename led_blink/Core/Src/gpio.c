@@ -20,9 +20,16 @@
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
 
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
 /*----------------------------------------------------------------------------*/
 /* Configure GPIO                                                             */
 /*----------------------------------------------------------------------------*/
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
 
 /** Configure pins as
         * Analog
@@ -30,14 +37,6 @@
         * Output
         * EVENT_OUT
         * EXTI
-     PB12   ------> I2S2_WS
-     PC7   ------> I2S3_MCK
-     PA9   ------> USB_OTG_FS_VBUS
-     PA10   ------> USB_OTG_FS_ID
-     PA11   ------> USB_OTG_FS_DM
-     PA12   ------> USB_OTG_FS_DP
-     PC10   ------> I2S3_CK
-     PC12   ------> I2S3_SD
 */
 void MX_GPIO_Init(void)
 {
@@ -47,72 +46,25 @@ void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(OTG_FS_PowerSwitchOn_GPIO_Port, OTG_FS_PowerSwitchOn_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
-                          |Audio_RST_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = OTG_FS_PowerSwitchOn_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(OTG_FS_PowerSwitchOn_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PB12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_12;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PDPin PDPin PDPin PDPin
-                           PDPin */
-  GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
-                          |Audio_RST_Pin;
+  /*Configure GPIO pins : PDPin PDPin PDPin PDPin */
+  GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PCPin PCPin PCPin */
-  GPIO_InitStruct.Pin = I2S3_MCK_Pin|I2S3_SCK_Pin|I2S3_SD_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF6_SPI3;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = VBUS_FS_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(VBUS_FS_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PAPin PAPin PAPin */
-  GPIO_InitStruct.Pin = OTG_FS_ID_Pin|OTG_FS_DM_Pin|OTG_FS_DP_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = OTG_FS_OverCurrent_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(OTG_FS_OverCurrent_GPIO_Port, &GPIO_InitStruct);
-
 }
 
-// alf64: flash led 4 and 5
+/* USER CODE BEGIN 2 */
+
+//!< Test LEDs 4 - 6
 void MX_GPIO_TestLeds(void)
 {
     HAL_GPIO_WritePin(GPIOD, (LD4_Pin | LD5_Pin), GPIO_PIN_SET);
@@ -124,5 +76,7 @@ void MX_GPIO_TestLeds(void)
     HAL_GPIO_WritePin(GPIOD, (LD3_Pin | LD6_Pin), GPIO_PIN_RESET);
     HAL_Delay(625);
 }
+
+/* USER CODE END 2 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
